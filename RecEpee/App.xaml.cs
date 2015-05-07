@@ -1,0 +1,31 @@
+﻿using RecEpee.DataAccess;
+using RecEpee.Framework;
+using RecEpee.Models;
+using RecEpee.ViewModels;
+using RecEpee.Views;
+using System;
+using System.Runtime.CompilerServices;
+using System.Windows;
+
+[assembly: InternalsVisibleTo("RicettarioTest")]
+[assembly: CLSCompliant(true)]
+
+namespace RecEpee
+{
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : Application
+    {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            Ioc.RegisterInstance<IDataRepository<Recipe>>(new XmlRecipeRepository());
+
+            Window window = new AllRecipesView();
+            window.DataContext = new AllRecipesViewModel();
+
+            MainWindow = window;
+            MainWindow.Show();
+        }
+    }
+}
