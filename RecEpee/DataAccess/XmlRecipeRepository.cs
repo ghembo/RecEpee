@@ -7,9 +7,11 @@ namespace RecEpee.DataAccess
 {
     class XmlRecipeRepository : IDataRepository<Recipe>
     {
+        public const string DefaultPath = @"C:\recipes.xml";
+
         public List<Recipe> Load()
         {
-            return Load(@"C:\recipes.xml");
+            return Load(DefaultPath);
         }
 
         public List<Recipe> Load(string path)
@@ -28,7 +30,7 @@ namespace RecEpee.DataAccess
 
         public void Save(List<Recipe> recipes)
         {
-            Save(recipes, @"C:\recipes.xml");
+            Save(recipes, DefaultPath);
         }
 
         public void Save(List<Recipe> recipes, string path)

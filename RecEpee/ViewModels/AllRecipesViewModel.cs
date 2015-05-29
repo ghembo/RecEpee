@@ -24,7 +24,7 @@ namespace RecEpee.ViewModels
 
             _addRecipe = new RelayCommand((p) => addRecipe());
             _removeRecipe = new RelayCommand((p) => removeRecipe());
-            _close = new RelayCommand((p) => close());           
+            _close = new RelayCommand((p) => close());
         }
 
         private void tryLoadRecipes()
