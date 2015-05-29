@@ -14,11 +14,13 @@ namespace RecEpee.ViewModels
             Product = GetAttributeValue<AssemblyProductAttribute>(assembly, a => a.Product);
             Copyright = GetAttributeValue<AssemblyCopyrightAttribute>(assembly, a => a.Copyright);
             Description = GetAttributeValue<AssemblyDescriptionAttribute>(assembly, a => a.Description);
+            Version = GetAttributeValue<AssemblyFileVersionAttribute>(assembly, a => a.Version);
         }
 
         public static string Product { get; private set; }
         public static string Copyright { get; private set; }
         public static string Description { get; private set; }
+        public static string Version { get; private set; }
 
         public static string Logo
         {

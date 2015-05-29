@@ -34,6 +34,12 @@
         <StackPanel Width="auto" Margin="10,0,0,0">
             <Label Content="{Binding Product}" Style="{StaticResource header}" />
             <Label Content="{Binding Description}" />
+            
+            <StackPanel Orientation="Horizontal">
+                <Label>Version</Label>
+                <Label Content="{Binding Version}" />
+            </StackPanel>
+            
             <Label Content="{Binding Copyright}" Style="{StaticResource copyright}" />
         </StackPanel>        
     </StackPanel>
