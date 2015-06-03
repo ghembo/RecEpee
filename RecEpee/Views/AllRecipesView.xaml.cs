@@ -23,5 +23,11 @@ namespace RecEpee.Views
         {
             InitializeComponent();
         }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            var about = new AboutView();
+            about.ShowDialog();
+        }
     }
 }

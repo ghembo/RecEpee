@@ -93,21 +93,28 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <ListBox ItemsSource="{Binding Source={StaticResource recipesList}}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedRecipe}" 
+        <Menu Grid.ColumnSpan="2" IsMainMenu="True">
+            <MenuItem Header="?" Click="About_Click">
+                <MenuItem Header="_About..."></MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <ListBox Grid.Row="1" ItemsSource="{Binding Source={StaticResource recipesList}}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedRecipe}" 
                  SelectedIndex="{Binding SelectedRecipeIndex}"  Style="{StaticResource recipes}">
             <ListBox.GroupStyle>
                 <GroupStyle />
             </ListBox.GroupStyle>
         </ListBox>
-        <Button Grid.Row="1" Style="{StaticResource DefaultButton}" Command="{Binding AddRecipe}">Add Recipe</Button>
+        <Button Grid.Row="2" Style="{StaticResource DefaultButton}" Command="{Binding AddRecipe}">Add Recipe</Button>
 
-        <ContentControl Grid.Column="1" Content="{Binding}" DataContext="{Binding SelectedRecipe}" ContentTemplate="{StaticResource detailsTemplate}"
+        <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding}" DataContext="{Binding SelectedRecipe}" ContentTemplate="{StaticResource detailsTemplate}"
                         Style="{StaticResource hideIfNullContent}"/>
-        <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource DefaultButton}" 
+        <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource DefaultButton}" 
                 Command="{Binding RemoveRecipe}" HorizontalAlignment="Right">Delete</Button>
     </Grid>
 </Window>
