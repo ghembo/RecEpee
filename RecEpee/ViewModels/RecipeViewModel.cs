@@ -83,7 +83,7 @@ namespace RecEpee.ViewModels
             NewIngredients = new ObservableCollection<Ingredient>(Model.Ingredients.Select(ing => ing.GetWithDifferentQuantity(GetNewQuantity(ing.Quantity.Value))));
         }
 
-        private int GetNewQuantity(int quantity)
+        private double GetNewQuantity(double quantity)
         {
             return (NewPortions * quantity) / Portions;
         }

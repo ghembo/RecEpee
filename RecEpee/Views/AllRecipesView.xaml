@@ -51,7 +51,7 @@
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
                             <Label>Ingredients for</Label>
-                            <TextBox Text="{Binding NewPortions}"/>
+                            <TextBox Text="{Binding Path=NewPortions, UpdateSourceTrigger=PropertyChanged}"/>
                             <Label>:</Label>
                         </StackPanel>
 
