@@ -82,6 +82,7 @@
     <Compile Include="Framework\CollectionSyncher.cs" />
     <Compile Include="Framework\Ioc.cs" />
     <Compile Include="Framework\ViewModelBase.cs" />
+    <Compile Include="Framework\VvmBinder.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Utilities\IngredientParser.cs" />
     <Compile Include="Framework\ObjectToVisibilityConverter.cs" />
@@ -169,6 +170,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="about.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

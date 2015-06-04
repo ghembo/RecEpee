@@ -25,6 +25,7 @@ namespace RecEpee.ViewModels
             _addRecipe = new RelayCommand((p) => addRecipe());
             _removeRecipe = new RelayCommand((p) => removeRecipe());
             _close = new RelayCommand((p) => close());
+            _about = new RelayCommand((p) => showAboutDialog());
         }
 
         private void tryLoadRecipes()
@@ -69,7 +70,6 @@ namespace RecEpee.ViewModels
         public ICommand AddRecipe
         {
             get { return _addRecipe; }
-            set { SetProperty(value); }
         }
 
         private void addRecipe()
@@ -84,7 +84,6 @@ namespace RecEpee.ViewModels
         public ICommand RemoveRecipe
         {
             get { return _removeRecipe; }
-            set { SetProperty(value); }
         }
 
         private void removeRecipe()
@@ -105,7 +104,6 @@ namespace RecEpee.ViewModels
         public ICommand Close
         {
             get { return _close; }
-            set { SetProperty(value); }
         }
 
         private void close()
@@ -117,6 +115,17 @@ namespace RecEpee.ViewModels
         {
             return Recipes.Select(vm => vm.Model).ToList();
         }
+
+        private ICommand _about;
+        public ICommand About
+        {
+            get { return _about; }
+        }
+
+        private void showAboutDialog()
+        {
+            VvmBinder.GetView<AboutViewModel>().ShowDialog();
+        }        
 
         private IDataRepository<Recipe> _recipeRepository;
     }

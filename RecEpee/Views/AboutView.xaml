@@ -2,12 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:my="clr-namespace:RecEpee.ViewModels"
-        Title="{Binding Title}"  SizeToContent ="WidthAndHeight"
-        DataContext="{DynamicResource viewModel}">
+        Title="{Binding Title}"  SizeToContent ="WidthAndHeight">
     
     <Window.Resources>
-        <my:AboutViewModel x:Key="viewModel" />
-
         <Style x:Key="header" TargetType="Label">
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="LayoutTransform">

@@ -21,6 +21,8 @@ namespace RecEpee
         {
             Ioc.RegisterInstance<IDataRepository<Recipe>>(new XmlRecipeRepository());
 
+            VvmBinder.RegisterBinding<AboutViewModel, AboutView>();
+
             Window window = new AllRecipesView();
             window.DataContext = new AllRecipesViewModel();
 

@@ -99,8 +99,12 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.ColumnSpan="2" IsMainMenu="True">
-            <MenuItem Header="?" Click="About_Click">
-                <MenuItem Header="_About..."></MenuItem>
+            <MenuItem Header="?">
+                <MenuItem Header="_About..." Command="{Binding About}">
+                    <MenuItem.Icon>
+                        <Image Source="../about.png" Width="20" Height="20"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
 
