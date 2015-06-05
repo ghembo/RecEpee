@@ -9,7 +9,7 @@ namespace RecEpee.Views
     {
         public AllRecipesView()
         {
-            InitializeComponent();
-        }
+            InitializeComponent();            
+        }        
     }
 }

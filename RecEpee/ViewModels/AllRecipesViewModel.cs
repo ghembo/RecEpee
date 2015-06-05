@@ -4,7 +4,9 @@ using RecEpee.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace RecEpee.ViewModels
@@ -21,11 +23,28 @@ namespace RecEpee.ViewModels
 
             _selectedRecipeIndex = 0;
             _selectedRecipe = null;
+            _searchText = "";
 
             _addRecipe = new RelayCommand((p) => addRecipe());
             _removeRecipe = new RelayCommand((p) => removeRecipe());
             _close = new RelayCommand((p) => close());
             _about = new RelayCommand((p) => showAboutDialog());
+
+            _collectionView = CollectionViewSource.GetDefaultView(Recipes);
+            _collectionView.Filter = OnFilterRecipes;
+        }
+
+        private ICollectionView _collectionView;
+        public ICollectionView CollectionView
+        {
+            get { return _collectionView; }
+        }
+
+        private bool OnFilterRecipes(object obj)
+        {
+            var recipe = (RecipeViewModel)obj;
+
+            return recipe.Title.Contains(SearchText);
         }
 
         private void tryLoadRecipes()
@@ -64,6 +83,13 @@ namespace RecEpee.ViewModels
         {
             get { return _selectedRecipeIndex; }
             set { SetProperty(value); }
+        }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get { return _searchText; }
+            set { SetProperty(value); _collectionView.Refresh(); }
         }
 
         private ICommand _addRecipe;

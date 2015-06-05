@@ -5,18 +5,27 @@
         xmlns:views="clr-namespace:RecEpee.Views"
         xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         Title="RecEpee" Height="500" Width="600" MinWidth="300" MinHeight="300"
         local:WindowClosingBehavior.Closing="{Binding Close}">
     <Window.Resources>
-        <CollectionViewSource x:Key="recipesList" Source="{Binding Recipes}" IsLiveGroupingRequested="True" IsLiveSortingRequested="True">
+        <!--<CollectionViewSource x:Key="recipesList" Source="{Binding Recipes}"
+				IsLiveGroupingRequested="True"
+				IsLiveSortingRequested="True"
+				IsLiveFilteringRequested="True">
             <CollectionViewSource.SortDescriptions>
                 <componentModel:SortDescription PropertyName="Category" />
                 <componentModel:SortDescription PropertyName="Title" />
             </CollectionViewSource.SortDescriptions>
+            
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription PropertyName="Category" />
             </CollectionViewSource.GroupDescriptions>
-        </CollectionViewSource>    
+            
+			<CollectionViewSource.LiveFilteringProperties>
+                <System:String>Title</System:String>
+			</CollectionViewSource.LiveFilteringProperties>
+        </CollectionViewSource>-->    
         
         <local:ObjectToVisibilityConverter x:Key="nullConverter"/>
         
@@ -47,12 +56,30 @@
             </MenuItem>
         </Menu>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding Source={StaticResource recipesList}}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedRecipe}" 
-                 SelectedIndex="{Binding SelectedRecipeIndex}"  Style="{StaticResource recipes}">
-            <ListBox.GroupStyle>
-                <GroupStyle />
-            </ListBox.GroupStyle>
-        </ListBox>
+        <DockPanel Grid.Row="1" VerticalAlignment="Stretch">
+            <Grid DockPanel.Dock="Top">
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+                <TextBlock IsHitTestVisible="False" Text="Search..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=Parent.Children[0].Text, RelativeSource={RelativeSource Self}}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <ListBox ItemsSource="{Binding CollectionView}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedRecipe}" 
+                 SelectedIndex="{Binding SelectedRecipeIndex}" Style="{StaticResource recipes}" VerticalAlignment="Stretch">
+                <ListBox.GroupStyle>
+                    <GroupStyle />
+                </ListBox.GroupStyle>
+            </ListBox>
+        </DockPanel>        
         
         <Button Grid.Row="2" Style="{StaticResource DefaultButton}" Command="{Binding AddRecipe}">Add Recipe</Button>
 
