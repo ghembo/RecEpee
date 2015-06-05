@@ -64,8 +64,8 @@ namespace RecEpee.ViewModels
             set { SetProperty(value); }
         }
 
-        private int _newPortions;
-        public int NewPortions
+        private int? _newPortions;
+        public int? NewPortions
         {
             get { return _newPortions; }
             set { SetProperty(value); CalculateNewIngredients(); }
@@ -80,12 +80,20 @@ namespace RecEpee.ViewModels
 
         private void CalculateNewIngredients()
         {
-            NewIngredients = new ObservableCollection<Ingredient>(Model.Ingredients.Select(ing => ing.GetWithDifferentQuantity(GetNewQuantity(ing.Quantity.Value))));
+            if (NewPortions.HasValue)
+            {
+                NewIngredients = new ObservableCollection<Ingredient>(Model.Ingredients.Select(ing => ing.GetWithDifferentQuantity(GetNewQuantity(ing.Quantity.Value))));
+            }
+            else
+            {
+                NewIngredients = null;
+            }
+            
         }
 
         private double GetNewQuantity(double quantity)
         {
-            return (NewPortions * quantity) / Portions;
+            return (NewPortions.Value * quantity) / Portions;
         }
 
         private string _newIngredient;

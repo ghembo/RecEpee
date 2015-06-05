@@ -20,8 +20,8 @@
         
         <local:ObjectToVisibilityConverter x:Key="nullConverter"/>
         
-        <Style x:Key="hideIfNullContent" TargetType="FrameworkElement">
-            <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource self}, Path=Content, Converter={StaticResource nullConverter}}" />
+        <Style x:Key="hideIfNullDataContext" TargetType="FrameworkElement">
+            <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource self}, Path=DataContext, Converter={StaticResource nullConverter}}" />
         </Style>
     </Window.Resources>
     
@@ -56,7 +56,7 @@
         
         <Button Grid.Row="2" Style="{StaticResource DefaultButton}" Command="{Binding AddRecipe}">Add Recipe</Button>
 
-        <views:RecipeView Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedRecipe}" Style="{StaticResource hideIfNullContent}"/>
+        <views:RecipeView Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedRecipe}" Style="{StaticResource hideIfNullDataContext}"/>
         
         <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource DefaultButton}" 
                 Command="{Binding RemoveRecipe}" HorizontalAlignment="Right">Delete</Button>

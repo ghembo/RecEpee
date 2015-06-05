@@ -42,8 +42,8 @@
 
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <Label Content="Ingredients for"/>
-                <TextBox Text="{Binding NewPortions, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Calculate ingredients for"/>
+                <TextBox Text="{Binding NewPortions, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
                 <Label Content=":"/>
             </StackPanel>
 
@@ -51,8 +51,8 @@
         </StackPanel>
     </StackPanel>
 
-
     <Label DockPanel.Dock="Top" Content="Add ingredient:"/>
+    
     <Grid DockPanel.Dock="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
