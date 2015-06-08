@@ -31,7 +31,16 @@ namespace RecEpee.ViewModels
             _about = new RelayCommand((p) => showAboutDialog());
 
             _collectionView = CollectionViewSource.GetDefaultView(Recipes);
+            _collectionView.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
+            _collectionView.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
             _collectionView.Filter = OnFilterRecipes;
+            var cvls = _collectionView as ICollectionViewLiveShaping;
+            cvls.IsLiveSorting = true;
+            cvls.LiveSortingProperties.Add("Title");
+            cvls.IsLiveGrouping = true;
+            cvls.LiveGroupingProperties.Add("Category");
+            cvls.IsLiveFiltering = true;
+            cvls.LiveFilteringProperties.Add("Title");
         }
 
         private ICollectionView _collectionView;
@@ -44,7 +53,7 @@ namespace RecEpee.ViewModels
         {
             var recipe = (RecipeViewModel)obj;
 
-            return recipe.Title.Contains(SearchText);
+            return recipe.Title.ToLowerInvariant().Contains(SearchText.ToLowerInvariant());
         }
 
         private void tryLoadRecipes()

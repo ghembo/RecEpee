@@ -42,6 +42,15 @@
         <Setter Property="Cursor" Value="Hand" />
     </Style>
 
+    <Style TargetType="{x:Type Button}" x:Key="deleteSearchButton" BasedOn="{StaticResource roundButton}">
+        <Setter Property="Visibility" Value="Visible"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Parent.Children[0].Text, RelativeSource={RelativeSource Self}}" Value="">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="ItemsControl" x:Key="ingredientsList">
         <Setter Property="Padding" Value="5,0,5,5"/>
         <Setter Property="ItemTemplate">
@@ -50,7 +59,7 @@
                     <Border BorderThickness="1,0,0,0" BorderBrush="Black" >
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.RemoveIngredient}" 
-                            CommandParameter="{Binding}" Style="{StaticResource roundButton}" Foreground="Red" Width="13" Height="13" />
+                            CommandParameter="{Binding}" Style="{StaticResource roundButton}" Width="13" Height="13" />
                             <TextBlock Margin="5,0,0,0" >
                             <Run Text="{Binding Path=Name, Mode=OneWay}" FontWeight="Bold" />
                             <Run Text="{Binding Path=Quantity, Mode=OneWay}"/>
