@@ -26,9 +26,18 @@ namespace RecEpee.ViewModels
 
         private void Initialize()
         {
-            _removeIngredient = new RelayCommand((p) => removeIngredient(p));
-            _addIngredient = new RelayCommand((p) => addIngredient(), (p) => canAddIngredient());
+            RemoveIngredient = new RelayCommand((p) => removeIngredient(p));
+            AddIngredient = new RelayCommand((p) => addIngredient(), (p) => canAddIngredient());
             _newIngredient = null;
+
+            _editing = false;
+        }
+
+        private bool _editing;
+        public bool Editing
+        {
+            get { return _editing; }
+            set { SetProperty(value); }
         }
 
         public string Title
@@ -103,12 +112,8 @@ namespace RecEpee.ViewModels
             set { SetProperty(value); }
         }
 
-        private ICommand _addIngredient;
-        public ICommand AddIngredient
-        {
-            get { return _addIngredient; }
-            set { SetProperty(value); }
-        }
+        public ICommand AddIngredient { get; private set; }
+        public ICommand RemoveIngredient { get; private set; }
 
         private bool canAddIngredient()
         {
@@ -121,13 +126,6 @@ namespace RecEpee.ViewModels
             Ingredients.Add(ingredient);
 
             NewIngredient = null;
-        }
-
-        private ICommand _removeIngredient;
-        public ICommand RemoveIngredient
-        {
-            get { return _removeIngredient; }
-            set { SetProperty(value); }
         }
 
         private void removeIngredient(object item)

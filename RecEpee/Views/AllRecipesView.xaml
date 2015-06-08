@@ -15,6 +15,21 @@
         <Style x:Key="hideIfNullDataContext" TargetType="FrameworkElement">
             <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource self}, Path=DataContext, Converter={StaticResource nullConverter}}" />
         </Style>
+
+        <Style TargetType="{x:Type GroupItem}" x:Key="listGroup">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Expander  IsExpanded="True">
+                            <Expander.Header>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold"></TextBlock>
+                            </Expander.Header>
+                            <ItemsPresenter Margin="10,0,0,0"/>
+                        </Expander>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     
     <Grid>
@@ -63,29 +78,12 @@
             <ListBox ItemsSource="{Binding RecipesCollectionView}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedRecipe}" 
                  SelectedIndex="{Binding SelectedRecipeIndex}" Style="{StaticResource recipes}" VerticalAlignment="Stretch">
                 <ListBox.GroupStyle>
-                    <GroupStyle>
+                    <GroupStyle ContainerStyle="{StaticResource listGroup}">
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock FontWeight="Bold" Text="{Binding Name}"/>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
-
-                        <GroupStyle.ContainerStyle>
-                            <Style TargetType="{x:Type GroupItem}">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate>
-                                            <Expander  IsExpanded="True">
-                                                <Expander.Header>
-                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold"></TextBlock>
-                                                </Expander.Header>
-                                                <ItemsPresenter Margin="10,0,0,0"/>
-                                            </Expander>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </GroupStyle.ContainerStyle>
                     </GroupStyle>
                 </ListBox.GroupStyle>
             </ListBox>

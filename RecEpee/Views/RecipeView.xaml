@@ -18,6 +18,8 @@
             <Setter Property="Width" Value="Auto"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
+        
+        <BooleanToVisibilityConverter x:Key="boolToVisConverter"/>
 
     </DockPanel.Resources>
     
