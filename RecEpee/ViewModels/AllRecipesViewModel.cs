@@ -1,6 +1,7 @@
 ﻿using RecEpee.DataAccess;
 using RecEpee.Framework;
 using RecEpee.Models;
+using RecEpee.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +9,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
-using RecEpee.Utilities;
 
 namespace RecEpee.ViewModels
 {
@@ -26,10 +26,11 @@ namespace RecEpee.ViewModels
             _selectedRecipe = null;
             _searchText = "";
 
-            _addRecipe = new RelayCommand((p) => addRecipe());
-            _removeRecipe = new RelayCommand((p) => removeRecipe());
-            _close = new RelayCommand((p) => close());
-            _about = new RelayCommand((p) => showAboutDialog());
+            AddRecipe = new RelayCommand((p) => addRecipe());
+            RemoveRecipe = new RelayCommand((p) => removeRecipe());
+            Close = new RelayCommand((p) => close());
+            About = new RelayCommand((p) => showAboutDialog());
+            ClearSearch = new RelayCommand((p) => clearSearch());
 
             SetUpRecipesCollectionView();
         }
@@ -101,11 +102,11 @@ namespace RecEpee.ViewModels
             set { SetProperty(value); _recipesCollectionView.Refresh(); }
         }
 
-        private ICommand _addRecipe;
-        public ICommand AddRecipe
-        {
-            get { return _addRecipe; }
-        }
+        public ICommand AddRecipe { get; private set; }
+        public ICommand RemoveRecipe { get; private set; }
+        public ICommand Close { get; private set; }
+        public ICommand About { get; private set; }
+        public ICommand ClearSearch { get; private set; }
 
         private void addRecipe()
         {
@@ -113,12 +114,6 @@ namespace RecEpee.ViewModels
 
             Recipes.Add(newRecipe);
             SelectedRecipe = newRecipe;
-        }
-
-        private ICommand _removeRecipe;
-        public ICommand RemoveRecipe
-        {
-            get { return _removeRecipe; }
         }
 
         private void removeRecipe()
@@ -134,13 +129,7 @@ namespace RecEpee.ViewModels
             return _selectedRecipeIndex > 0 ? _selectedRecipeIndex - 1 :
                 _selectedRecipeIndex < Recipes.Count ? _selectedRecipeIndex : -1;
         }
-
-        private ICommand _close;
-        public ICommand Close
-        {
-            get { return _close; }
-        }
-
+        
         private void close()
         {
             _recipeRepository.Save(GetRecipes());
@@ -151,16 +140,15 @@ namespace RecEpee.ViewModels
             return Recipes.Select(vm => vm.Model).ToList();
         }
 
-        private ICommand _about;
-        public ICommand About
-        {
-            get { return _about; }
-        }
-
         private void showAboutDialog()
         {
             VvmBinder.GetView<AboutViewModel>().ShowDialog();
         }        
+
+        private void clearSearch()
+        {
+            SearchText = "";
+        }   
 
         private IDataRepository<Recipe> _recipeRepository;
     }

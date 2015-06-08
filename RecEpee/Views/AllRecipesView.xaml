@@ -56,7 +56,8 @@
                     </TextBlock.Style>
                 </TextBlock>
                 
-                <Button Style="{StaticResource deleteSearchButton}" Width="13" Height="13" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" />                    
+                <Button Style="{StaticResource deleteSearchButton}" Command="{Binding ClearSearch}" 
+                        Width="13" Height="13" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" />                    
             </Grid>
 
             <ListBox ItemsSource="{Binding RecipesCollectionView}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedRecipe}" 
