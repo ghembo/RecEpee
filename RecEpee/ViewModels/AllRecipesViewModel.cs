@@ -17,6 +17,7 @@ namespace RecEpee.ViewModels
         public AllRecipesViewModel()
         {
             _recipeRepository = Ioc.GetInstance<IDataRepository<Recipe>>();
+            _dialogService = Ioc.GetInstance<IDialogService>();
 
             tryLoadRecipes();            
 
@@ -26,13 +27,18 @@ namespace RecEpee.ViewModels
             _selectedRecipe = null;
             _searchText = "";
 
+            SetUpCommands();
+
+            SetUpRecipesCollectionView();
+        }
+
+        private void SetUpCommands()
+        {
             AddRecipe = new RelayCommand((p) => addRecipe());
             RemoveRecipe = new RelayCommand((p) => removeRecipe());
             Close = new RelayCommand((p) => close());
             About = new RelayCommand((p) => showAboutDialog());
             ClearSearch = new RelayCommand((p) => clearSearch());
-
-            SetUpRecipesCollectionView();
         }
 
         private void SetUpRecipesCollectionView()
@@ -119,10 +125,13 @@ namespace RecEpee.ViewModels
 
         private void removeRecipe()
         {
-            var nextSelectedIndex = GetNextSelectedIndex();
+            if (_dialogService.ShowConfirmationDialog() == true)
+            {
+                var nextSelectedIndex = GetNextSelectedIndex();
 
-            Recipes.Remove(SelectedRecipe);
-            SelectedRecipeIndex = nextSelectedIndex;
+                Recipes.Remove(SelectedRecipe);
+                SelectedRecipeIndex = nextSelectedIndex;
+            }            
         }
 
         private int GetNextSelectedIndex()
@@ -143,7 +152,7 @@ namespace RecEpee.ViewModels
 
         private void showAboutDialog()
         {
-            VvmBinder.GetView<AboutViewModel>().ShowDialog();
+            _dialogService.ShowAboutDialog();
         }        
 
         private void clearSearch()
@@ -152,5 +161,6 @@ namespace RecEpee.ViewModels
         }   
 
         private IDataRepository<Recipe> _recipeRepository;
+        private IDialogService _dialogService;
     }
 }
