@@ -59,7 +59,7 @@
                     <Border BorderThickness="1,0,0,0" BorderBrush="Black" >
                         <StackPanel Orientation="Horizontal" Margin="5">
                             <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.RemoveIngredient}" 
-                            CommandParameter="{Binding}" Style="{StaticResource roundButton}" Width="13" Height="13" />
+                                CommandParameter="{Binding}" Style="{StaticResource roundButton}" Width="13" Height="13" />
                             <TextBlock Margin="5,0,0,0" >
                             <Run Text="{Binding Path=Name, Mode=OneWay}" FontWeight="Bold" />
                             <Run Text="{Binding Path=Quantity, Mode=OneWay}"/>

@@ -40,6 +40,7 @@ namespace RecEpee.ViewModels
             _recipesCollectionView = CollectionViewSource.GetDefaultView(Recipes);
 
             _recipesCollectionView.SetGrouping("Category");
+            _recipesCollectionView.SetSorting("Category");
             _recipesCollectionView.SetSorting("Title");
             _recipesCollectionView.SetFiltering("Title", OnFilterRecipes);
         }
