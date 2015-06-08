@@ -84,6 +84,7 @@
     <Compile Include="Framework\ViewModelBase.cs" />
     <Compile Include="Framework\VvmBinder.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Utilities\ExtensionMethods.cs" />
     <Compile Include="Utilities\IngredientParser.cs" />
     <Compile Include="Framework\ObjectToVisibilityConverter.cs" />
     <Compile Include="Framework\RelayCommand.cs" />

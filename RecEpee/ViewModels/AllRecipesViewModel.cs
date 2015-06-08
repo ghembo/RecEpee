@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
+using RecEpee.Utilities;
 
 namespace RecEpee.ViewModels
 {
@@ -30,23 +31,22 @@ namespace RecEpee.ViewModels
             _close = new RelayCommand((p) => close());
             _about = new RelayCommand((p) => showAboutDialog());
 
-            _collectionView = CollectionViewSource.GetDefaultView(Recipes);
-            _collectionView.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
-            _collectionView.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
-            _collectionView.Filter = OnFilterRecipes;
-            var cvls = _collectionView as ICollectionViewLiveShaping;
-            cvls.IsLiveSorting = true;
-            cvls.LiveSortingProperties.Add("Title");
-            cvls.IsLiveGrouping = true;
-            cvls.LiveGroupingProperties.Add("Category");
-            cvls.IsLiveFiltering = true;
-            cvls.LiveFilteringProperties.Add("Title");
+            SetUpRecipesCollectionView();
         }
 
-        private ICollectionView _collectionView;
-        public ICollectionView CollectionView
+        private void SetUpRecipesCollectionView()
         {
-            get { return _collectionView; }
+            _recipesCollectionView = CollectionViewSource.GetDefaultView(Recipes);
+
+            _recipesCollectionView.SetGrouping("Category");
+            _recipesCollectionView.SetSorting("Title");
+            _recipesCollectionView.SetFiltering("Title", OnFilterRecipes);
+        }
+
+        private ICollectionView _recipesCollectionView;
+        public ICollectionView RecipesCollectionView
+        {
+            get { return _recipesCollectionView; }
         }
 
         private bool OnFilterRecipes(object obj)
@@ -98,7 +98,7 @@ namespace RecEpee.ViewModels
         public string SearchText
         {
             get { return _searchText; }
-            set { SetProperty(value); _collectionView.Refresh(); }
+            set { SetProperty(value); _recipesCollectionView.Refresh(); }
         }
 
         private ICommand _addRecipe;

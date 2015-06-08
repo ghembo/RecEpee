@@ -8,25 +8,8 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         Title="RecEpee" Height="500" Width="600" MinWidth="300" MinHeight="300"
         local:WindowClosingBehavior.Closing="{Binding Close}">
-    <Window.Resources>
-        <!--<CollectionViewSource x:Key="recipesList" Source="{Binding Recipes}"
-				IsLiveGroupingRequested="True"
-				IsLiveSortingRequested="True"
-				IsLiveFilteringRequested="True">
-            <CollectionViewSource.SortDescriptions>
-                <componentModel:SortDescription PropertyName="Category" />
-                <componentModel:SortDescription PropertyName="Title" />
-            </CollectionViewSource.SortDescriptions>
-            
-            <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="Category" />
-            </CollectionViewSource.GroupDescriptions>
-            
-			<CollectionViewSource.LiveFilteringProperties>
-                <System:String>Title</System:String>
-			</CollectionViewSource.LiveFilteringProperties>
-        </CollectionViewSource>-->    
-        
+    
+    <Window.Resources>        
         <local:ObjectToVisibilityConverter x:Key="nullConverter"/>
         
         <Style x:Key="hideIfNullDataContext" TargetType="FrameworkElement">
@@ -59,6 +42,7 @@
         <DockPanel Grid.Row="1" VerticalAlignment="Stretch">
             <Grid DockPanel.Dock="Top">
                 <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Margin="5" Padding="0,0,20,0"/>
+                
                 <TextBlock IsHitTestVisible="False" Text="Search..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
@@ -71,10 +55,11 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
+                
                 <Button Style="{StaticResource deleteSearchButton}" Width="13" Height="13" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" />                    
             </Grid>
 
-            <ListBox ItemsSource="{Binding CollectionView}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedRecipe}" 
+            <ListBox ItemsSource="{Binding RecipesCollectionView}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedRecipe}" 
                  SelectedIndex="{Binding SelectedRecipeIndex}" Style="{StaticResource recipes}" VerticalAlignment="Stretch">
                 <ListBox.GroupStyle>
                     <GroupStyle />
