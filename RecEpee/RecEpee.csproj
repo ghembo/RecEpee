@@ -111,8 +111,8 @@
     <Compile Include="Views\ShowRecipeView.xaml.cs">
       <DependentUpon>ShowRecipeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RecipeView.xaml.cs">
-      <DependentUpon>RecipeView.xaml</DependentUpon>
+    <Compile Include="Views\EditRecipeView.xaml.cs">
+      <DependentUpon>EditRecipeView.xaml</DependentUpon>
     </Compile>
     <Page Include="DefaultStyles.xaml">
       <SubType>Designer</SubType>
@@ -130,7 +130,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\RecipeView.xaml">
+    <Page Include="Views\EditRecipeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

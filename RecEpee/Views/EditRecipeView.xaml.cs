@@ -5,9 +5,9 @@ namespace RecEpee.Views
     /// <summary>
     /// Interaction logic for RecipeView.xaml
     /// </summary>
-    public partial class RecipeView : DockPanel
+    public partial class EditRecipeView : DockPanel
     {
-        public RecipeView()
+        public EditRecipeView()
         {
             InitializeComponent();
         }

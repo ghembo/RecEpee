@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" 
-    x:Class="RecEpee.Views.RecipeView"
+    x:Class="RecEpee.Views.EditRecipeView"
     d:DesignWidth="401" d:DesignHeight="330">
 
     <DockPanel.Resources>
