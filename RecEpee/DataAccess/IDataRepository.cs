@@ -8,5 +8,8 @@ namespace RecEpee.DataAccess
         List<T> Load(string path);
         void Save(List<T> dataList);
         void Save(List<T> dataList, string path);
+        void Export(List<T> dataList);
+        void Export(List<T> dataList, string path);
+        void Print(List<T> dataList);
     }    
 }

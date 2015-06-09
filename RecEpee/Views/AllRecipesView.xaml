@@ -6,7 +6,7 @@
         xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
-        Title="RecEpee" Height="500" Width="600" MinWidth="300" MinHeight="300"
+        Title="RecEpee" Height="500" Width="600" MinWidth="500" MinHeight="300"
         local:WindowClosingBehavior.Closing="{Binding Close}">
     
     <Window.Resources>      
@@ -62,6 +62,14 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.ColumnSpan="2" IsMainMenu="True">
+            <MenuItem Header="File">
+                <MenuItem Header="_Export" Command="{Binding Export}">
+                </MenuItem>
+
+                <MenuItem Header="_Print" Command="{Binding Print}">
+                </MenuItem>
+            </MenuItem>
+            
             <MenuItem Header="?">
                 <MenuItem Header="_About..." Command="{Binding About}">
                     <MenuItem.Icon>

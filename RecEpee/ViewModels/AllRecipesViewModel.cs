@@ -40,8 +40,10 @@ namespace RecEpee.ViewModels
             EditRecipe = new RelayCommand((p) => Editing = true);
             ShowRecipe = new RelayCommand((p) => Editing = false);
             Close = new RelayCommand((p) => close());
-            About = new RelayCommand((p) => showAboutDialog());
-            ClearSearch = new RelayCommand((p) => clearSearch());
+            About = new RelayCommand((p) => _dialogService.ShowAboutDialog());
+            ClearSearch = new RelayCommand((p) => SearchText = "");
+            Export = new RelayCommand((p) => _recipeRepository.Export(GetRecipes()));
+            Print = new RelayCommand((p) => _recipeRepository.Print(GetRecipes()));
         }
 
         private void SetUpRecipesCollectionView()
@@ -126,6 +128,8 @@ namespace RecEpee.ViewModels
         public ICommand Close { get; private set; }
         public ICommand About { get; private set; }
         public ICommand ClearSearch { get; private set; }
+        public ICommand Export { get; private set; }
+        public ICommand Print { get; private set; }
 
         private void addRecipe()
         {
@@ -160,17 +164,7 @@ namespace RecEpee.ViewModels
         private List<Recipe> GetRecipes()
         {
             return Recipes.Select(vm => vm.Model).ToList();
-        }
-
-        private void showAboutDialog()
-        {
-            _dialogService.ShowAboutDialog();
-        }        
-
-        private void clearSearch()
-        {
-            SearchText = "";
-        }   
+        }  
 
         private IDataRepository<Recipe> _recipeRepository;
         private IDialogService _dialogService;
