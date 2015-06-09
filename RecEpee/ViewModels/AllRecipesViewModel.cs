@@ -35,7 +35,7 @@ namespace RecEpee.ViewModels
 
         private void SetUpCommands()
         {
-            AddRecipe = new RelayCommand((p) => addRecipe());
+            AddRecipe = new RelayCommand((p) => { addRecipe(); Editing = true; });
             RemoveRecipe = new RelayCommand((p) => removeRecipe());
             EditRecipe = new RelayCommand((p) => Editing = true);
             ShowRecipe = new RelayCommand((p) => Editing = false);
@@ -129,7 +129,7 @@ namespace RecEpee.ViewModels
 
         private void addRecipe()
         {
-            var newRecipe = new RecipeViewModel(new Recipe { Title = "New recipe" });
+            var newRecipe = new RecipeViewModel(new Recipe { Title = "New recipe", Portions = 4 });
 
             Recipes.Add(newRecipe);
             SelectedRecipe = newRecipe;

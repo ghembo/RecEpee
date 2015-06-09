@@ -31,13 +31,15 @@
             </Style.Triggers>
         </Style>
 
+        <local:ObjectToVisibilityConverter x:Key="c" />
+        
         <Style TargetType="{x:Type GroupItem}" x:Key="listGroup">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
                         <Expander IsExpanded="True" Margin="0,0,0,5">
-                            <Expander.Header>
-                                <TextBlock Text="{Binding Name}" FontWeight="Bold"></TextBlock>
+                            <Expander.Header >
+                                <TextBlock Text="{Binding Name, TargetNullValue=Uncategorized}" FontWeight="Bold"></TextBlock>
                             </Expander.Header>
                             <ItemsPresenter Margin="10,0,0,0"/>
                         </Expander>
