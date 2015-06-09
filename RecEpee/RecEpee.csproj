@@ -83,6 +83,7 @@
     <Compile Include="Framework\DialogService.cs" />
     <Compile Include="Framework\IDialogService.cs" />
     <Compile Include="Framework\Ioc.cs" />
+    <Compile Include="Framework\MultiStyleExtension.cs" />
     <Compile Include="Framework\ViewModelBase.cs" />
     <Compile Include="Framework\VvmBinder.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -107,6 +108,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\ShowRecipeView.xaml.cs">
+      <DependentUpon>ShowRecipeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RecipeView.xaml.cs">
       <DependentUpon>RecipeView.xaml</DependentUpon>
     </Compile>
@@ -121,6 +125,10 @@
     <Page Include="Views\AllRecipesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShowRecipeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\RecipeView.xaml">
       <SubType>Designer</SubType>

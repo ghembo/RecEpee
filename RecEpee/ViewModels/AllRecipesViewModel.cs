@@ -26,6 +26,7 @@ namespace RecEpee.ViewModels
             _selectedRecipeIndex = 0;
             _selectedRecipe = null;
             _searchText = "";
+            _editing = false;
 
             SetUpCommands();
 
@@ -36,6 +37,8 @@ namespace RecEpee.ViewModels
         {
             AddRecipe = new RelayCommand((p) => addRecipe());
             RemoveRecipe = new RelayCommand((p) => removeRecipe());
+            EditRecipe = new RelayCommand((p) => Editing = true);
+            ShowRecipe = new RelayCommand((p) => Editing = false);
             Close = new RelayCommand((p) => close());
             About = new RelayCommand((p) => showAboutDialog());
             ClearSearch = new RelayCommand((p) => clearSearch());
@@ -109,8 +112,17 @@ namespace RecEpee.ViewModels
             set { SetProperty(value); _recipesCollectionView.Refresh(); }
         }
 
+        private bool _editing;
+        public bool Editing
+        {
+            get { return _editing; }
+            set { SetProperty(value); }
+        }
+
         public ICommand AddRecipe { get; private set; }
         public ICommand RemoveRecipe { get; private set; }
+        public ICommand EditRecipe { get; private set; }
+        public ICommand ShowRecipe { get; private set; }
         public ICommand Close { get; private set; }
         public ICommand About { get; private set; }
         public ICommand ClearSearch { get; private set; }

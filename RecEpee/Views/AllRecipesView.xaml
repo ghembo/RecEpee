@@ -9,18 +9,33 @@
         Title="RecEpee" Height="500" Width="600" MinWidth="300" MinHeight="300"
         local:WindowClosingBehavior.Closing="{Binding Close}">
     
-    <Window.Resources>        
-        <local:ObjectToVisibilityConverter x:Key="nullConverter"/>
-        
-        <Style x:Key="hideIfNullDataContext" TargetType="FrameworkElement">
-            <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource self}, Path=DataContext, Converter={StaticResource nullConverter}}" />
+    <Window.Resources>      
+
+        <Style x:Key="showIfEditing" TargetType="FrameworkElement">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Editing}" Value="false">
+                    <DataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger.Setters>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="showIfNotEditing" TargetType="FrameworkElement">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Editing}" Value="true">
+                    <DataTrigger.Setters>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger.Setters>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
 
         <Style TargetType="{x:Type GroupItem}" x:Key="listGroup">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Expander  IsExpanded="True">
+                        <Expander IsExpanded="True" Margin="0,0,0,5">
                             <Expander.Header>
                                 <TextBlock Text="{Binding Name}" FontWeight="Bold"></TextBlock>
                             </Expander.Header>
@@ -91,9 +106,20 @@
         
         <Button Grid.Row="2" Style="{StaticResource DefaultButton}" Command="{Binding AddRecipe}">Add Recipe</Button>
 
-        <views:RecipeView Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedRecipe}" Style="{StaticResource hideIfNullDataContext}"/>
-        
-        <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource DefaultButton}" 
-                Command="{Binding RemoveRecipe}" HorizontalAlignment="Right">Delete</Button>
+        <Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource showIfNotEditing}">
+            <views:ShowRecipeView DataContext="{Binding SelectedRecipe}" Style="{StaticResource hideIfNullDataContext}"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1" Style="{StaticResource showIfEditing}">
+            <views:RecipeView DataContext="{Binding SelectedRecipe}" Style="{StaticResource hideIfNullDataContext}"/>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
+            <Button Style="{local:MultiStyle DefaultButton showIfNotEditing}" Command="{Binding EditRecipe}" HorizontalAlignment="Right">Edit</Button>
+
+            <Button Style="{local:MultiStyle DefaultButton showIfEditing}" Command="{Binding ShowRecipe}" HorizontalAlignment="Right">Done</Button>
+
+            <Button Style="{StaticResource DefaultButton}" Command="{Binding RemoveRecipe}" HorizontalAlignment="Right">Delete</Button>
+        </StackPanel>        
     </Grid>
 </Window>

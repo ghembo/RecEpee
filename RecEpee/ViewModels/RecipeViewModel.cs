@@ -29,15 +29,6 @@ namespace RecEpee.ViewModels
             RemoveIngredient = new RelayCommand((p) => removeIngredient(p));
             AddIngredient = new RelayCommand((p) => addIngredient(), (p) => canAddIngredient());
             _newIngredient = null;
-
-            _editing = false;
-        }
-
-        private bool _editing;
-        public bool Editing
-        {
-            get { return _editing; }
-            set { SetProperty(value); }
         }
 
         public string Title
