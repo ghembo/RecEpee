@@ -27,14 +27,14 @@ namespace RecEpee.Utilities
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "row");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "col-md-2 hidden-print");
+                writer.AddAttribute(HtmlTextWriterAttribute.Class, "col-md-2 col-sm-3 hidden-print");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
                 RenderNavigation(recipes, writer);
 
                 writer.RenderEndTag(); // div
 
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "col-md-10");
+                writer.AddAttribute(HtmlTextWriterAttribute.Class, "col-md-10 col-sm-9");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
                 RenderRecipes(recipes, writer);
@@ -54,7 +54,7 @@ namespace RecEpee.Utilities
             writer.AddAttribute(HtmlTextWriterAttribute.Class, "row");
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
-            writer.AddAttribute(HtmlTextWriterAttribute.Class, "page-header col-md-10 col-md-offset-2");
+            writer.AddAttribute(HtmlTextWriterAttribute.Class, "page-header col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3");
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
             writer.RenderBeginTag(HtmlTextWriterTag.H1);
