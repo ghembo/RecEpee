@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
 using System.Windows;
+using System.Linq;
 
 namespace RecEpee.Utilities
 {
     class HtmlBuilder
     {
-        // TODO: raggruppare per categoria, link alle varie categorie
+        // TODO: link alle varie categorie
         public static void RenderHtml(List<Recipe> recipes, TextWriter textWriter)
         {
+            recipes = recipes.OrderBy((r) => r.Category).ThenBy((r) => r.Title).ToList();
+
             using (HtmlTextWriter writer = new HtmlTextWriter(textWriter))
             {                
                 writer.RenderBeginTag(HtmlTextWriterTag.Html);
@@ -90,10 +93,26 @@ namespace RecEpee.Utilities
 
         private static void RenderRecipes(List<Recipe> dataList, HtmlTextWriter writer)
         {
+            string category = null;
+
             foreach (var recipe in dataList)
             {
+                if (recipe.Category != category)
+                {
+                    category = recipe.Category;
+
+                    RenderCategory(category, writer);
+                }
+
                 RenderRecipe(recipe, writer);
             }
+        }
+
+        private static void RenderCategory(string category, HtmlTextWriter writer)
+        {
+            writer.RenderBeginTag(HtmlTextWriterTag.H2);
+            writer.Write(category);
+            writer.RenderEndTag();
         }
 
         private static void RenderRecipe(Recipe recipe, HtmlTextWriter writer)
@@ -101,25 +120,33 @@ namespace RecEpee.Utilities
             writer.AddAttribute(HtmlTextWriterAttribute.Class, "panel panel-default");
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
+            writer.AddAttribute(HtmlTextWriterAttribute.Class, "panel-heading");
+            writer.RenderBeginTag(HtmlTextWriterTag.Div);
+
+            writer.AddAttribute(HtmlTextWriterAttribute.Class, "panel-title");
+            writer.RenderBeginTag(HtmlTextWriterTag.H3);
+            writer.RenderBeginTag(HtmlTextWriterTag.Strong);
+            writer.Write(recipe.Title);
+
+//             writer.RenderBeginTag(HtmlTextWriterTag.Small);
+//             writer.Write(recipe.Category);
+//             writer.RenderEndTag();
+
+            writer.RenderEndTag();
+            writer.RenderEndTag();
+
+            writer.RenderEndTag();
+
             writer.AddAttribute(HtmlTextWriterAttribute.Class, "panel-body");
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
-            writer.RenderBeginTag(HtmlTextWriterTag.H2);
-            writer.Write(recipe.Title);
-
-            writer.RenderBeginTag(HtmlTextWriterTag.Small);
-            writer.Write(recipe.Category);
-            writer.RenderEndTag();
-
-            writer.RenderEndTag();
-
-            writer.RenderBeginTag(HtmlTextWriterTag.H3);
+            writer.RenderBeginTag(HtmlTextWriterTag.H4);
             writer.Write("Ingredients for " + recipe.Portions + " people:");
             writer.RenderEndTag();
 
             RenderIngredients(recipe.Ingredients, writer);
 
-            writer.RenderBeginTag(HtmlTextWriterTag.H3);
+            writer.RenderBeginTag(HtmlTextWriterTag.H4);
             writer.Write("Description:");
             writer.RenderEndTag();
 

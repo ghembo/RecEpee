@@ -5,7 +5,6 @@ using System.Web.UI;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using RecEpee.Utilities;
-using System.Linq;
 
 namespace RecEpee.DataAccess
 {
@@ -56,9 +55,6 @@ namespace RecEpee.DataAccess
 
         public void Export(List<Recipe> dataList, string path)
         {
-            //dataList.Sort((r1, r2) => r1.Title.CompareTo(r2.Title));
-            dataList = dataList.OrderBy((r) => r.Category).ThenBy((r) => r.Title).ToList();
-
             using (TextWriter textWriter = new StreamWriter(path))
             {
                 HtmlBuilder.RenderHtml(dataList, textWriter);

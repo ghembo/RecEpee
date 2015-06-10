@@ -62,7 +62,7 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.ColumnSpan="2" IsMainMenu="True">
-            <MenuItem Header="File">
+            <MenuItem Header="_File">
                 <MenuItem Header="_Export" Command="{Binding Export}">
                 </MenuItem>
 
