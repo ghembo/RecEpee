@@ -1,9 +1,9 @@
 ﻿using RecEpee.Models;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web.UI;
 using System.Windows;
-using System.Linq;
 
 namespace RecEpee.Utilities
 {
@@ -22,19 +22,7 @@ namespace RecEpee.Utilities
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "container");
                 writer.RenderBeginTag(HtmlTextWriterTag.Body);
 
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "row");
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
-
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "page-header col-md-12");
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
-
-                writer.RenderBeginTag(HtmlTextWriterTag.H1);
-                writer.Write("Recipes list");
-                writer.RenderEndTag();
-
-                writer.RenderEndTag(); // div
-
-                writer.RenderEndTag(); // row
+                RenderHeader(writer);
 
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "row");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
@@ -61,6 +49,23 @@ namespace RecEpee.Utilities
             }
         }
 
+        private static void RenderHeader(HtmlTextWriter writer)
+        {
+            writer.AddAttribute(HtmlTextWriterAttribute.Class, "row");
+            writer.RenderBeginTag(HtmlTextWriterTag.Div);
+
+            writer.AddAttribute(HtmlTextWriterAttribute.Class, "page-header col-md-12");
+            writer.RenderBeginTag(HtmlTextWriterTag.Div);
+
+            writer.RenderBeginTag(HtmlTextWriterTag.H1);
+            writer.Write("Recipes list");
+            writer.RenderEndTag();
+
+            writer.RenderEndTag(); // div
+
+            writer.RenderEndTag(); // row
+        }
+
         private static void RenderNavigation(List<Recipe> recipes, HtmlTextWriter writer)
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Class, "List-group");
@@ -69,24 +74,39 @@ namespace RecEpee.Utilities
             var categories = recipes.GroupBy((r) => r.Category).Select((c) => new {name = c.Key, count = c.Count()});
 
             foreach (var category in categories)
-            {   
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "List-group-item");
-                writer.RenderBeginTag(HtmlTextWriterTag.Li);
-
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "badge");
-                writer.RenderBeginTag(HtmlTextWriterTag.Span);
-                writer.Write(category.count);
-                writer.RenderEndTag();
-
-                writer.AddAttribute(HtmlTextWriterAttribute.Href, "#" + category.name);
-                writer.RenderBeginTag(HtmlTextWriterTag.A);
-                writer.Write(category.name);
-                writer.RenderEndTag();
-
-                writer.RenderEndTag(); // li
+            {
+                RenderNavigationEntry(writer, category.name, category.count);
             }           
 
             writer.RenderEndTag(); // ul
+        }
+
+        private static void RenderNavigationEntry(HtmlTextWriter writer, string text, int count)
+        {
+            writer.AddAttribute(HtmlTextWriterAttribute.Class, "List-group-item");
+            writer.RenderBeginTag(HtmlTextWriterTag.Li);
+
+            RenderBadge(writer, count);
+
+            RenderInternalLink(writer, text);
+
+            writer.RenderEndTag(); // li
+        }
+
+        private static void RenderInternalLink(HtmlTextWriter writer, string text)
+        {
+            writer.AddAttribute(HtmlTextWriterAttribute.Href, "#" + text);
+            writer.RenderBeginTag(HtmlTextWriterTag.A);
+            writer.Write(text);
+            writer.RenderEndTag();
+        }
+
+        private static void RenderBadge(HtmlTextWriter writer, int count)
+        {
+            writer.AddAttribute(HtmlTextWriterAttribute.Class, "badge");
+            writer.RenderBeginTag(HtmlTextWriterTag.Span);
+            writer.Write(count);
+            writer.RenderEndTag();
         }
 
         public static void RenderHtml(Recipe recipe, TextWriter textWriter)
@@ -121,15 +141,25 @@ namespace RecEpee.Utilities
         {
             writer.RenderBeginTag(HtmlTextWriterTag.Head);
 
-            writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/css");
-            writer.RenderBeginTag(HtmlTextWriterTag.Style);
-            writer.Write(GetCss());
-            writer.RenderEndTag();
+            RenderCss(writer);
 
+            RenderTitle(writer);
+
+            writer.RenderEndTag();
+        }
+
+        private static void RenderTitle(HtmlTextWriter writer)
+        {
             writer.RenderBeginTag(HtmlTextWriterTag.Title);
             writer.Write("Recipes list");
             writer.RenderEndTag();
+        }
 
+        private static void RenderCss(HtmlTextWriter writer)
+        {
+            writer.AddAttribute(HtmlTextWriterAttribute.Type, "text/css");
+            writer.RenderBeginTag(HtmlTextWriterTag.Style);
+            writer.Write(GetCss());
             writer.RenderEndTag();
         }
 
