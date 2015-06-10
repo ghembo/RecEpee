@@ -5,11 +5,17 @@ namespace RecEpee.Models
 {
     public class Recipe
     {
-        public static readonly IReadOnlyCollection<string> Categories = new ReadOnlyCollection<string>(new string[] { "Antipasto", "Primo", "Secondo", "Contorno", "Dolce" });
+        public const string Uncategorized = "Nessuna categoria";
+        public static readonly IReadOnlyCollection<string> Categories = new ReadOnlyCollection<string>(new string[] { "Antipasto", "Primo", "Secondo", "Contorno", "Dolce", Uncategorized });
 
         public Recipe()
         {
             Ingredients = new List<Ingredient>();
+        }
+
+        public static Recipe GetNewRecipe()
+        {
+            return new Recipe { Title = "New recipe", Portions = 4, Category = Uncategorized };
         }
 
         public string Title { get; set; }

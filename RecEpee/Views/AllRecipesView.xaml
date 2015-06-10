@@ -39,7 +39,7 @@
                     <ControlTemplate>
                         <Expander IsExpanded="True" Margin="0,0,0,5">
                             <Expander.Header >
-                                <TextBlock Text="{Binding Name, TargetNullValue=Uncategorized}" FontWeight="Bold"></TextBlock>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold"></TextBlock>
                             </Expander.Header>
                             <ItemsPresenter Margin="10,0,0,0"/>
                         </Expander>

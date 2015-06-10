@@ -4,6 +4,8 @@ using System.IO;
 using System.Web.UI;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using RecEpee.Utilities;
+using System.Linq;
 
 namespace RecEpee.DataAccess
 {
@@ -53,60 +55,13 @@ namespace RecEpee.DataAccess
         }
 
         public void Export(List<Recipe> dataList, string path)
-        {            
+        {
+            //dataList.Sort((r1, r2) => r1.Title.CompareTo(r2.Title));
+            dataList = dataList.OrderBy((r) => r.Category).ThenBy((r) => r.Title).ToList();
+
             using (TextWriter textWriter = new StreamWriter(path))
             {
-                using (HtmlTextWriter writer = new HtmlTextWriter(textWriter))
-                {
-                    writer.RenderBeginTag(HtmlTextWriterTag.Html);
-
-                    writer.RenderBeginTag(HtmlTextWriterTag.Body);
-
-                    writer.RenderBeginTag(HtmlTextWriterTag.H1);
-                    writer.Write("Recipes list");
-                    writer.RenderEndTag();
-
-                    foreach (var recipe in dataList)
-                    {
-                        const string recipeClass = "recipe";
-
-                        writer.AddAttribute(HtmlTextWriterAttribute.Class, recipeClass);
-                        writer.RenderBeginTag(HtmlTextWriterTag.Div);
-
-                        writer.RenderBeginTag(HtmlTextWriterTag.H2);
-                        writer.Write(recipe.Title);
-                        writer.RenderEndTag();
-
-                        writer.RenderBeginTag(HtmlTextWriterTag.H3);
-                        writer.Write("Ingredients for " + recipe.Portions + " people:");
-                        writer.RenderEndTag();
-
-                        writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-
-                        foreach (var ingredient in recipe.Ingredients)
-                        {
-                            writer.RenderBeginTag(HtmlTextWriterTag.Li);
-                            writer.Write(ingredient.Name);
-                            writer.RenderEndTag();
-                        }
-
-                        writer.RenderEndTag();
-
-                        writer.RenderBeginTag(HtmlTextWriterTag.H3);
-                        writer.Write("Description:");
-                        writer.RenderEndTag();
-
-                        writer.RenderBeginTag(HtmlTextWriterTag.P);
-                        writer.Write(recipe.Description);
-                        writer.RenderEndTag();
-
-                        writer.RenderEndTag();
-                    }
-
-                    writer.RenderEndTag();
-
-                    writer.RenderEndTag();
-                }
+                HtmlBuilder.RenderHtml(dataList, textWriter);
             }      
         }
 

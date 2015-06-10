@@ -90,6 +90,7 @@
     <Compile Include="Framework\VvmBinder.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Utilities\ExtensionMethods.cs" />
+    <Compile Include="Utilities\HtmlBuilder.cs" />
     <Compile Include="Utilities\IngredientParser.cs" />
     <Compile Include="Framework\ObjectToVisibilityConverter.cs" />
     <Compile Include="Framework\RelayCommand.cs" />
@@ -193,6 +194,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="about.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bootstrap.min.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

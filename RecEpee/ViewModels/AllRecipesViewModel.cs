@@ -133,7 +133,7 @@ namespace RecEpee.ViewModels
 
         private void addRecipe()
         {
-            var newRecipe = new RecipeViewModel(new Recipe { Title = "New recipe", Portions = 4 });
+            var newRecipe = new RecipeViewModel(Recipe.GetNewRecipe());
 
             Recipes.Add(newRecipe);
             SelectedRecipe = newRecipe;
