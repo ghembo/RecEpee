@@ -11,8 +11,7 @@ namespace RecEpee.DataAccess
     class XmlRecipeRepository : IDataRepository<Recipe>
     {
         public const string DefaultSavePath = @"C:\recipes.xml";
-        public const string DefaultExportPath = @"C:\recipes.html";
-        private const string TempExportPath = @"C:\temprecipes.html";
+        public const string DefaultExportPath = @"C:\recipes.html";        
 
         public List<Recipe> Load()
         {
@@ -59,15 +58,6 @@ namespace RecEpee.DataAccess
             {
                 HtmlBuilder.RenderHtml(dataList, textWriter);
             }      
-        }
-
-        public void Print(List<Recipe> dataList)
-        {
-            Export(dataList, TempExportPath);
-
-            WebBrowser webBrowser = new WebBrowser();
-            webBrowser.DocumentCompleted += (a, b) => webBrowser.ShowPrintPreviewDialog();
-            webBrowser.Url = new System.Uri(TempExportPath);  
         }
     }
 }

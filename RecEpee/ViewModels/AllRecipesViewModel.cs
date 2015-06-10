@@ -14,6 +14,8 @@ namespace RecEpee.ViewModels
 {
     class AllRecipesViewModel : ViewModelBase
     {
+        private const string TempExportPath = @"C:\temprecipes.html";
+
         public AllRecipesViewModel()
         {
             _recipeRepository = Ioc.GetInstance<IDataRepository<Recipe>>();
@@ -43,7 +45,8 @@ namespace RecEpee.ViewModels
             About = new RelayCommand((p) => _dialogService.ShowAboutDialog());
             ClearSearch = new RelayCommand((p) => SearchText = "");
             Export = new RelayCommand((p) => _recipeRepository.Export(GetRecipes()));
-            Print = new RelayCommand((p) => _recipeRepository.Print(GetRecipes()));
+            Print = new RelayCommand((p) => print());
+            PrintPreview = new RelayCommand((p) => showPrintPreview());
         }
 
         private void SetUpRecipesCollectionView()
@@ -130,6 +133,7 @@ namespace RecEpee.ViewModels
         public ICommand ClearSearch { get; private set; }
         public ICommand Export { get; private set; }
         public ICommand Print { get; private set; }
+        public ICommand PrintPreview { get; private set; }
 
         private void addRecipe()
         {
@@ -164,7 +168,21 @@ namespace RecEpee.ViewModels
         private List<Recipe> GetRecipes()
         {
             return Recipes.Select(vm => vm.Model).ToList();
-        }  
+        }
+
+        private void print()
+        {
+            _recipeRepository.Export(GetRecipes(), TempExportPath);
+
+            Printer.PrintHtmlFile(TempExportPath);
+        }
+
+        private void showPrintPreview()
+        {
+            _recipeRepository.Export(GetRecipes(), TempExportPath);
+
+            Printer.ShowPrintPreviewForHtmlFile(TempExportPath);
+        }
 
         private IDataRepository<Recipe> _recipeRepository;
         private IDialogService _dialogService;
