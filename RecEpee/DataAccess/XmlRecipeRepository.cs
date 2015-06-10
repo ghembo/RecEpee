@@ -66,7 +66,7 @@ namespace RecEpee.DataAccess
             Export(dataList, TempExportPath);
 
             WebBrowser webBrowser = new WebBrowser();
-            webBrowser.DocumentCompleted += (a, b) => webBrowser.ShowPrintDialog();
+            webBrowser.DocumentCompleted += (a, b) => webBrowser.ShowPrintPreviewDialog();
             webBrowser.Url = new System.Uri(TempExportPath);  
         }
     }
