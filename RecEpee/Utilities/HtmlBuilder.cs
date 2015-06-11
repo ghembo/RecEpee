@@ -104,8 +104,13 @@ namespace RecEpee.Utilities
         private static void RenderBadge(HtmlTextWriter writer, int count)
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Class, "badge");
+            RenderSpan(writer, count);
+        }
+
+        private static void RenderSpan<T>(HtmlTextWriter writer, T text)
+        {
             writer.RenderBeginTag(HtmlTextWriterTag.Span);
-            writer.Write(count);
+            writer.Write(text);
             writer.RenderEndTag();
         }
 
@@ -254,7 +259,12 @@ namespace RecEpee.Utilities
         private static void RenderIngredient(Ingredient ingredient, HtmlTextWriter writer)
         {
             writer.RenderBeginTag(HtmlTextWriterTag.Li);
-            writer.Write(ingredient.Name);
+            writer.Write(ingredient.Name + " ");
+
+            writer.RenderBeginTag(HtmlTextWriterTag.Em);
+            writer.Write(ingredient.Quantity + " " + ingredient.Unit);
+            writer.RenderEndTag();
+
             writer.RenderEndTag();
         }
     }

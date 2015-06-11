@@ -18,6 +18,13 @@ namespace RecEpee.Utilities
         {            
             WebBrowser webBrowser = new WebBrowser();
 
+            webBrowser.Parent = GetFakeParentWindow();
+            webBrowser.DocumentCompleted += (a, b) => webBrowser.ShowPrintPreviewDialog();
+            webBrowser.Url = new System.Uri(TempExportPath);            
+        }
+
+        private static Form GetFakeParentWindow()
+        {
             Form window = new Form();
             window.Visible = false;
             window.BackColor = Color.Lime;
@@ -27,10 +34,7 @@ namespace RecEpee.Utilities
             window.Height = PointsToPixels(System.Windows.Application.Current.MainWindow.ActualWidth, LengthDirection.Vertical);
             window.Show();
             window.Hide();
-
-            webBrowser.Parent = window;
-            webBrowser.DocumentCompleted += (a, b) => webBrowser.ShowPrintPreviewDialog();
-            webBrowser.Url = new System.Uri(TempExportPath);            
+            return window;
         }
 
         private static int PointsToPixels(double wpfPoints, LengthDirection direction)
