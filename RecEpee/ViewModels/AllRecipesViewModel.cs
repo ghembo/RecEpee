@@ -15,6 +15,7 @@ namespace RecEpee.ViewModels
     class AllRecipesViewModel : ViewModelBase
     {
         private const string TempExportPath = @"C:\temprecipes.html";
+        private const string DefaultExportPath = @"C:\recipes.html";
 
         public AllRecipesViewModel()
         {
@@ -44,7 +45,7 @@ namespace RecEpee.ViewModels
             Close = new RelayCommand((p) => close());
             About = new RelayCommand((p) => _dialogService.ShowAboutDialog());
             ClearSearch = new RelayCommand((p) => SearchText = "");
-            Export = new RelayCommand((p) => _recipeRepository.Export(GetRecipes()));
+            Export = new RelayCommand((p) => export());
             Print = new RelayCommand((p) => print());
             PrintPreview = new RelayCommand((p) => showPrintPreview());
         }
@@ -182,6 +183,12 @@ namespace RecEpee.ViewModels
             _recipeRepository.Export(GetRecipes(), TempExportPath);
 
             Printer.ShowPrintPreviewForHtmlFile(TempExportPath);
+        }
+
+        private void export()
+        {
+            _recipeRepository.Export(GetRecipes(), DefaultExportPath);
+            Osal.ShowFileWithDefaultProgram(DefaultExportPath);
         }
 
         private IDataRepository<Recipe> _recipeRepository;

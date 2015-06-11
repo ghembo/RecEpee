@@ -98,6 +98,7 @@
     <Compile Include="Framework\WindowClosingBehaviour.cs" />
     <Compile Include="DataAccess\IDataRepository.cs" />
     <Compile Include="Models\Ingredient.cs" />
+    <Compile Include="Utilities\Osal.cs" />
     <Compile Include="Utilities\Printer.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\AllRecipesViewModel.cs" />

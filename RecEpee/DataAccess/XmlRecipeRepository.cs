@@ -11,7 +11,6 @@ namespace RecEpee.DataAccess
     class XmlRecipeRepository : IDataRepository<Recipe>
     {
         public const string DefaultSavePath = @"C:\recipes.xml";
-        public const string DefaultExportPath = @"C:\recipes.html";        
 
         public List<Recipe> Load()
         {
@@ -45,11 +44,6 @@ namespace RecEpee.DataAccess
             {
                 serializer.Serialize(writer, recipes);
             }
-        }
-
-        public void Export(List<Recipe> dataList)
-        {
-            Export(dataList, DefaultExportPath);
         }
 
         public void Export(List<Recipe> dataList, string path)
