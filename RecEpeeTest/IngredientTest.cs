@@ -32,31 +32,31 @@ namespace RicettarioTest
         [TestMethod]
         public void TestSingleString()
         {
-            TestName("cioccolato", "cioccolato");
+            TestNameQuantityAndUnit("cioccolato", "cioccolato");
         }
 
         [TestMethod]
         public void TestSingleStringWithWhitespace()
         {
-            TestName(" cioccolato ", "cioccolato");
+            TestNameQuantityAndUnit(" cioccolato ", "cioccolato");
         }
 
         [TestMethod]
         public void TestMultipleWordsName()
         {
-            TestName(" cioccolato al latte", "cioccolato al latte");
+            TestNameQuantityAndUnit(" cioccolato al latte", "cioccolato al latte");
         }
 
         [TestMethod]
         public void TestNameAndQuantity()
         {
-            TestNameAndQuantity("uova 2", "uova", 2);
+            TestNameQuantityAndUnit("uova 2", "uova", 2);
         }
 
         [TestMethod]
         public void TestMultipleWordsNameAndQuantity()
         {
-            TestNameAndQuantity("uova fresche 2", "uova fresche", 2);
+            TestNameQuantityAndUnit("uova fresche 2", "uova fresche", 2);
         }
 
         [TestMethod]
@@ -77,20 +77,7 @@ namespace RicettarioTest
             TestNameQuantityAndUnit("zucchero a velo 3 cucchiaini", "zucchero a velo", 3, "cucchiaini");
         }
 
-        private static void TestName(string input, string expected)
-        {
-            Ingredient ingredient = IngredientParser.Parse(input);
-            Assert.AreEqual(expected, ingredient.Name);
-        }
-
-        private static void TestNameAndQuantity(string input, string expectedName, int expectedQuantity)
-        {
-            Ingredient ingredient = IngredientParser.Parse(input);
-            Assert.AreEqual(expectedName, ingredient.Name);
-            Assert.AreEqual(expectedQuantity, ingredient.Quantity);
-        }
-
-        private static void TestNameQuantityAndUnit(string input, string expectedName, int expectedQuantity, string expectedUnit)
+        private static void TestNameQuantityAndUnit(string input, string expectedName, int? expectedQuantity = null, string expectedUnit = null)
         {
             Ingredient ingredient = IngredientParser.Parse(input);
             Assert.AreEqual(expectedName, ingredient.Name);

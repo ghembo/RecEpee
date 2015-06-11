@@ -33,16 +33,20 @@ namespace RecEpee.Framework
             return ingredientString.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
 
-        private static int getQuantity(IList<string> words)
+        private static int? getQuantity(IList<string> words)
         {
             int quantity = 0;
 
             if (words.Count > 1 && int.TryParse(words.Last(), out quantity) == true)
             {
                 words.RemoveLast();
-            }
 
-            return quantity;
+                return quantity;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private static string getUnit(IList<string> words)
@@ -61,9 +65,13 @@ namespace RecEpee.Framework
 
                 if (numberMatch.Success)
                 {
-                    var quantityString = numberMatch.Value;
-                    unit = getNotNumericPart.Match(words.Last()).Value;
-                    words[words.Count - 1] = quantityString;                    
+                    var notNumberMatch = getNotNumericPart.Match(words.Last());
+
+                    if (notNumberMatch.Success)
+                    {
+                        unit = notNumberMatch.Value;
+                        words[words.Count - 1] = numberMatch.Value;
+                    }     
                 }
             }
 
