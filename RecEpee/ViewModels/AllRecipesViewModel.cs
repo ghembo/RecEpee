@@ -43,11 +43,11 @@ namespace RecEpee.ViewModels
             EditRecipe = new RelayCommand("Edit", (p) => Editing = true);
             ShowRecipe = new RelayCommand("Done", (p) => Editing = false);
             Close = new RelayCommand((p) => close());
-            About = new RelayCommand("About...", (p) => _dialogService.ShowAboutDialog());
+            About = new RelayCommand("_About...", (p) => _dialogService.ShowAboutDialog());
             ClearSearch = new RelayCommand((p) => SearchText = "");
-            Export = new RelayCommand("Export", (p) => export());
-            Print = new RelayCommand("Print", (p) => print());
-            PrintPreview = new RelayCommand("Print preview", (p) => showPrintPreview());
+            Export = new RelayCommand("_Export", new KeyGesture(Key.E, ModifierKeys.Control), (p) => export());
+            Print = new RelayCommand("_Print", new KeyGesture(Key.P, ModifierKeys.Control), (p) => print());
+            PrintPreview = new RelayCommand("P_rint preview", new KeyGesture(Key.R, ModifierKeys.Control), (p) => showPrintPreview());
         }
 
         private void SetUpRecipesCollectionView()
