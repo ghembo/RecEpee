@@ -7,7 +7,7 @@ namespace RecEpee.Models
         public double? Quantity { get; set; }
         public string Unit { get; set; }
 
-        public Ingredient GetWithDifferentQuantity(double newQuantity)
+        public Ingredient GetWithDifferentQuantity(double? newQuantity)
         {
             return new Ingredient { Name = Name, Unit = Unit, Quantity = newQuantity };
         }

@@ -82,7 +82,7 @@ namespace RecEpee.ViewModels
         {
             if (NewPortions.HasValue)
             {
-                NewIngredients = new ObservableCollection<Ingredient>(Model.Ingredients.Select(ing => ing.GetWithDifferentQuantity(GetNewQuantity(ing.Quantity.Value))));
+                NewIngredients = new ObservableCollection<Ingredient>(Model.Ingredients.Select(ing => ing.GetWithDifferentQuantity(GetNewQuantity(ing.Quantity))));
             }
             else
             {
@@ -91,9 +91,17 @@ namespace RecEpee.ViewModels
             
         }
 
-        private double GetNewQuantity(double quantity)
+        private double? GetNewQuantity(double? quantity)
         {
-            return (NewPortions.Value * quantity) / Portions;
+            if (quantity.HasValue)
+            {
+                return (NewPortions.Value * quantity.Value) / Portions;
+            }
+            else
+            {
+                return null;
+            }
+            
         }
 
         private string _newIngredient;
