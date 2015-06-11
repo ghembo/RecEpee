@@ -26,7 +26,7 @@ namespace RecEpee.ViewModels
         {
             get
             {
-                return @"../icon.png";
+                return @"../Images/icon.png";
             }
         }
 

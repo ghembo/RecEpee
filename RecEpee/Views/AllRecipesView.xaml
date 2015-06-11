@@ -30,8 +30,6 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-
-        <local:ObjectToVisibilityConverter x:Key="c" />
         
         <Style TargetType="{x:Type GroupItem}" x:Key="listGroup">
             <Setter Property="Template">
@@ -48,7 +46,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -64,19 +62,28 @@
         <Menu Grid.ColumnSpan="2" IsMainMenu="True">
             <MenuItem Header="_File">
                 <MenuItem Header="_Export" Command="{Binding Export}">
+                    <MenuItem.Icon>
+                        <Image Source="../Images/export.png" Style="{StaticResource menuIcon}"></Image>
+                    </MenuItem.Icon>
                 </MenuItem>
 
                 <MenuItem Header="P_rint preview..." Command="{Binding PrintPreview}">
+                    <MenuItem.Icon>
+                        <Image Source="../Images/print_preview.png" Style="{StaticResource menuIcon}"></Image>
+                    </MenuItem.Icon>
                 </MenuItem>
 
                 <MenuItem Header="_Print..." Command="{Binding Print}">
+                    <MenuItem.Icon>
+                        <Image Source="../Images/print.png" Style="{StaticResource menuIcon}"></Image>
+                    </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             
             <MenuItem Header="?">
                 <MenuItem Header="_About..." Command="{Binding About}">
                     <MenuItem.Icon>
-                        <Image Source="../about.png" Width="20" Height="20"></Image>
+                        <Image Source="../Images/info.png" Style="{StaticResource menuIcon}"></Image>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
