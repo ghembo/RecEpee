@@ -38,16 +38,16 @@ namespace RecEpee.ViewModels
 
         private void SetUpCommands()
         {
-            AddRecipe = new RelayCommand((p) => { addRecipe(); Editing = true; });
-            RemoveRecipe = new RelayCommand((p) => removeRecipe());
-            EditRecipe = new RelayCommand((p) => Editing = true);
-            ShowRecipe = new RelayCommand((p) => Editing = false);
+            AddRecipe = new RelayCommand("Add recipe", (p) => { addRecipe(); Editing = true; });
+            RemoveRecipe = new RelayCommand("Remove", (p) => removeRecipe());
+            EditRecipe = new RelayCommand("Edit", (p) => Editing = true);
+            ShowRecipe = new RelayCommand("Done", (p) => Editing = false);
             Close = new RelayCommand((p) => close());
-            About = new RelayCommand((p) => _dialogService.ShowAboutDialog());
+            About = new RelayCommand("About...", (p) => _dialogService.ShowAboutDialog());
             ClearSearch = new RelayCommand((p) => SearchText = "");
-            Export = new RelayCommand((p) => export());
-            Print = new RelayCommand((p) => print());
-            PrintPreview = new RelayCommand((p) => showPrintPreview());
+            Export = new RelayCommand("Export", (p) => export());
+            Print = new RelayCommand("Print", (p) => print());
+            PrintPreview = new RelayCommand("Print preview", (p) => showPrintPreview());
         }
 
         private void SetUpRecipesCollectionView()

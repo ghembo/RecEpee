@@ -27,7 +27,7 @@ namespace RecEpee.ViewModels
         private void Initialize()
         {
             RemoveIngredient = new RelayCommand((p) => removeIngredient(p));
-            AddIngredient = new RelayCommand((p) => addIngredient(), (p) => canAddIngredient());
+            AddIngredient = new RelayCommand("Add ingredient", (p) => addIngredient(), (p) => canAddIngredient());
             _newIngredient = null;
         }
 

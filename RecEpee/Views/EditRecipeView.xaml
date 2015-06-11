@@ -53,7 +53,7 @@
                 <KeyBinding Command="{Binding AddIngredient}" Key="Enter"/>
             </TextBox.InputBindings>
         </TextBox>
-        <Button Command="{Binding AddIngredient}" Content="Add" Style="{StaticResource add}" Grid.Column="1"/>
+        <Button Command="{Binding AddIngredient}" Content="{Binding AddIngredient.Name}" Style="{StaticResource add}" Grid.Column="1"/>
     </Grid>
 
     <Label DockPanel.Dock="Top" Content="Description:"/>

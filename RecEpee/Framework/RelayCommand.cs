@@ -8,6 +8,8 @@ namespace RecEpee.Framework
         private readonly Predicate<object> _canExecute;
         private readonly Action<object> _execute;
 
+        public string Name { get; private set; }
+
         public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
         {
             if (execute == null)
@@ -17,6 +19,11 @@ namespace RecEpee.Framework
 
             _canExecute = canExecute;
             _execute = execute;
+        }
+
+        public RelayCommand(string name, Action<object> execute, Predicate<object> canExecute = null) : this(execute, canExecute)
+        {
+            Name = name;
         }
 
         public bool CanExecute(object parameter)
