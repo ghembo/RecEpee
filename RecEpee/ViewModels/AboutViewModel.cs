@@ -14,7 +14,8 @@ namespace RecEpee.ViewModels
             Product = GetAttributeValue<AssemblyProductAttribute>(assembly, a => a.Product);
             Copyright = GetAttributeValue<AssemblyCopyrightAttribute>(assembly, a => a.Copyright);
             Description = GetAttributeValue<AssemblyDescriptionAttribute>(assembly, a => a.Description);
-            Version = GetAttributeValue<AssemblyFileVersionAttribute>(assembly, a => a.Version);
+            //Version = GetAttributeValue<AssemblyFileVersionAttribute>(assembly, a => a.Version);
+            Version = Info.Version;
         }
 
         public static string Product { get; private set; }

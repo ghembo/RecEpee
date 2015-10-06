@@ -100,6 +100,7 @@
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Utilities\Osal.cs" />
     <Compile Include="Utilities\Printer.cs" />
+    <Compile Include="Version.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\AllRecipesViewModel.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />
