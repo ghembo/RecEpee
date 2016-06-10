@@ -25,7 +25,7 @@ namespace RecEpee
 
             VvmBinder.RegisterBinding<AboutViewModel, AboutView>();
             VvmBinder.RegisterBinding<AllRecipesViewModel, AllRecipesView>();
-            
+
             MainWindow = VvmBinder.GetView<AllRecipesViewModel>();
             MainWindow.Show();
         }
