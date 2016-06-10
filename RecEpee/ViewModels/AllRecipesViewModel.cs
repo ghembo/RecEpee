@@ -20,6 +20,7 @@ namespace RecEpee.ViewModels
         public AllRecipesViewModel()
         {
             _recipeRepository = Ioc.GetInstance<IDataRepository<Recipe>>();
+            _exporter= Ioc.GetInstance<IExporter<Recipe>>();
             _dialogService = Ioc.GetInstance<IDialogService>();
 
             tryLoadRecipes();            
@@ -173,25 +174,26 @@ namespace RecEpee.ViewModels
 
         private void print()
         {
-            _recipeRepository.Export(GetRecipes(), TempExportPath);
+            _exporter.Export(GetRecipes(), TempExportPath);
 
             Printer.PrintHtmlFile(TempExportPath);
         }
 
         private void showPrintPreview()
         {
-            _recipeRepository.Export(GetRecipes(), TempExportPath);
+            _exporter.Export(GetRecipes(), TempExportPath);
 
             Printer.ShowPrintPreviewForHtmlFile(TempExportPath);
         }
 
         private void export()
         {
-            _recipeRepository.Export(GetRecipes(), DefaultExportPath);
+            _exporter.Export(GetRecipes(), DefaultExportPath);
             Osal.ShowFileWithDefaultProgram(DefaultExportPath);
         }
 
         private IDataRepository<Recipe> _recipeRepository;
+        private IExporter<Recipe> _exporter;
         private IDialogService _dialogService;
     }
 }

@@ -20,6 +20,7 @@ namespace RecEpee
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             Ioc.RegisterInstance<IDataRepository<Recipe>>(new XmlRecipeRepository());
+            Ioc.RegisterInstance<IExporter<Recipe>>(new HtmlRecipeExporter());
             Ioc.RegisterInstance<IDialogService>(new DialogService());
 
             VvmBinder.RegisterBinding<AboutViewModel, AboutView>();

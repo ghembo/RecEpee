@@ -1,10 +1,7 @@
 ﻿using RecEpee.Models;
 using System.Collections.Generic;
 using System.IO;
-using System.Web.UI;
-using System.Windows.Forms;
 using System.Xml.Serialization;
-using RecEpee.Utilities;
 
 namespace RecEpee.DataAccess
 {
@@ -44,14 +41,6 @@ namespace RecEpee.DataAccess
             {
                 serializer.Serialize(writer, recipes);
             }
-        }
-
-        public void Export(List<Recipe> dataList, string path)
-        {
-            using (TextWriter textWriter = new StreamWriter(path))
-            {
-                HtmlBuilder.RenderHtml(dataList, textWriter);
-            }      
         }
     }
 }
