@@ -91,6 +91,7 @@
     </ApplicationDefinition>
     <Compile Include="DataAccess\HtmlRecipeExporter.cs" />
     <Compile Include="DataAccess\IExporter.cs" />
+    <Compile Include="DataAccess\SqLiteRecipeRepository.cs" />
     <Compile Include="DataAccess\XmlRecipeRepository.cs" />
     <Compile Include="Framework\CollectionSyncher.cs" />
     <Compile Include="Framework\DialogService.cs" />
